@@ -1,0 +1,56 @@
+<ion-content>
+  <div class="register-container">
+    <div class="header">
+      <div class="logo"><img src="assets/green.svg" alt="Logo" /></div>
+        <div class="tabs">
+        <span class="inactive-tab" (click)="goToLogin()">Login</span>
+        <span class="active-tab">Register</span>
+      </div>
+    </div>
+    <form (ngSubmit)="register()" class="register-form">
+      <ion-item>
+        <ion-label position="floating">Full Name</ion-label>
+        <ion-input
+          [(ngModel)]="fullName"
+          name="fullName"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">E-Mail</ion-label>
+        <ion-input
+          [(ngModel)]="email"
+          type="email"
+          name="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          [(ngModel)]="password"
+          type="password"
+          name="password"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input
+          [(ngModel)]="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-button
+        shape="round"
+        expand="full"
+        type="submit"
+        class="register-ion-button"
+      >
+        Register
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

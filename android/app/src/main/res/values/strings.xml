@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SavingApp</string>
+    <string name="title_activity_main">SavingApp</string>
+    <string name="package_name">com.kokoa.savingapp</string>
+    <string name="custom_url_scheme">com.kokoa.savingapp</string>
+</resources>

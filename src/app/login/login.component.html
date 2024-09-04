@@ -1,0 +1,40 @@
+<ion-content>
+  <div class="login-container">
+    <div class="header">
+      <div class="logo"><img src="assets/green.svg" alt="Logo" /></div>
+      <div class="tabs">
+        <span class="active-tab">Login</span>
+        <span class="inactive-tab" (click)="goToRegister()">Register</span>
+      </div>
+    </div>
+    <form (ngSubmit)="login()" class="login-form">
+      <ion-item>
+        <ion-label position="floating">E-Mail</ion-label>
+        <ion-input
+          [(ngModel)]="email"
+          [ngModelOptions]="{ standalone: true }"
+          type="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          [(ngModel)]="password"
+          [ngModelOptions]="{ standalone: true }"
+          type="password"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        shape="round"
+        expand="full"
+        type="submit"
+        class="login-ion-button"
+      >
+        Login
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

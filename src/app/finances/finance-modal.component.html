@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ item ? 'Editar' : 'Crear' }} {{ type === 'ingresos' ? 'Ingreso' : 'Gasto' }} {{ period ? 'Recurrente' : 'Mensual' }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label position="stacked">Categoría</ion-label>
+      <ion-select [(ngModel)]="data.categoria" name="categoria" aria-required="true" placeholder="Seleccionar categoría">
+        <ion-select-option *ngFor="let categoria of (type === 'ingresos' ? categoriasIngreso : categoriasGasto)" [value]="categoria">{{ categoria }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-input [(ngModel)]="data.descripcion" name="descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Monto</ion-label>
+      <ion-input type="number" [(ngModel)]="data.monto" name="monto"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Dia del Mes</ion-label>
+      <ion-input type="number" [(ngModel)]="data.dia" name="dia"></ion-input>
+    </ion-item>
+    <ion-button expand="full" *ngIf="period" (click)="saveRecurring()">Guardar Recurrente</ion-button>
+    <ion-button expand="full" *ngIf="!period" (click)="saveMonthly()">Guardar Mensual</ion-button>
+  </form>
+</ion-content>

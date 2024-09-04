@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>SavingApp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <h1>Hola, {{ nombreUsuario }} 👋</h1>
+    <p>¡No olvides ahorrar tu dinero!</p>
+
+    <app-card-saldo
+      [titulo]="tituloIngreso"
+      [dinero]="dineroRestante"
+      [diasRestantes]="diasRestantes"
+    ></app-card-saldo>
+
+    <ion-row style="align-items: center; justify-content: center; width: 100%;">
+      <ion-col style="display: flex; align-items: center; justify-content: center;">
+        <ion-button
+          shape="round"
+          style="
+            --border-radius: 20px;
+            align-items: center;
+            --background: #12bfa2;
+            height: 70px;
+            text-transform: none;
+            font-size: 1.05rem;
+          "
+          (click)="openModal('ingresos', null, null)"
+
+        >
+          <strong>Nuevo Ingreso</strong>
+        </ion-button>
+      </ion-col>
+      <ion-col style="display: flex; align-items: center; justify-content: center;">
+        <ion-button
+          shape="round"
+          style="
+            --border-radius: 20px;
+            align-items: center;
+            --background: #12bfa2;
+            height: 70px;
+            text-transform: none;
+            font-size: 1.05rem;
+          "
+          (click)="openModal('gastos', null, null)"
+        >
+          <strong>Nuevo Gasto</strong>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+       <ion-card>
+      <ion-card-header>
+        <ion-card-title>Transacciones del mes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="transacciones.length > 0; else noTransacciones">
+          <ion-card *ngFor="let item of transacciones">
+            <ion-card-content>
+              <p>
+                {{ item.descripcion }} ( {{ getCurrentMonthYear() }}-{{ item.dia}} )
+              </p>
+              <p>
+                {{ item.tipo === 'Ingreso' ? '+' : '-' }}
+                {{ item.monto | currency }}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <ng-template #noTransacciones>
+          <ion-item>
+            <ion-label>No hay elementos para mostrar</ion-label>
+          </ion-item>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+    
+  </ion-content>
+</ion-content>

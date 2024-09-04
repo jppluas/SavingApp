@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Historial de Movimientos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Recurrentes -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Recurrentes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Ingresos Recurrentes</ion-card-title>
+          <ion-button (click)="openModal('ingresos', true)">Agregar Ingreso</ion-button>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="getKeys(recurringIncomes).length > 0; else noRecurringIncomes">
+            <div *ngFor="let id of getKeys(recurringIncomes)">
+              <ion-item>
+                <ion-label>{{ recurringIncomes[id].descripcion }} <br> ${{ recurringIncomes[id].monto }}</ion-label>
+                <ion-button (click)="openModal('ingresos', true, recurringIncomes[id], id)">Editar</ion-button>
+                <ion-button color="danger" (click)="confirmDelete('ingresos', id, null, true)">Eliminar</ion-button>
+              </ion-item>
+            </div>
+          </div>
+          <ng-template #noRecurringIncomes>
+            <ion-item>
+              <ion-label>No hay elementos para mostrar</ion-label>
+            </ion-item>
+          </ng-template>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Gastos Recurrentes</ion-card-title>
+          <ion-button (click)="openModal('gastos', true)">Agregar Gasto</ion-button>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="getKeys(recurringExpenses).length > 0; else noRecurringExpenses">
+            <div *ngFor="let id of getKeys(recurringExpenses)">
+              <ion-item>
+                <ion-label>{{ recurringExpenses[id].descripcion }} <br> ${{ recurringExpenses[id].monto }}</ion-label>
+                <ion-button (click)="openModal('gastos', true, recurringExpenses[id], id)">Editar</ion-button>
+                <ion-button color="danger" (click)="confirmDelete('gastos', id, null, true)">Eliminar</ion-button>
+              </ion-item>
+            </div>
+          </div>
+          <ng-template #noRecurringExpenses>
+            <ion-item>
+              <ion-label>No hay elementos para mostrar</ion-label>
+            </ion-item>
+          </ng-template>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Historial de todos los meses -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Historial de Movimientos por Mes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="getMonthKeys(monthlyValues).length > 0; else noMonthlyValues">
+        <div *ngFor="let monthYear of getMonthKeys(monthlyValues)">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ formatMonthYear(monthYear) }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <div *ngFor="let id of getKeys(monthlyValues[monthYear].ingresos)">
+                  <ion-item>
+                    <ion-label>{{ monthlyValues[monthYear].ingresos[id].descripcion }} <br> + ${{ monthlyValues[monthYear].ingresos[id].monto }}</ion-label>
+                    <ion-button (click)="openModal('ingresos', null, monthlyValues[monthYear].ingresos[id], id, monthYear)">Editar</ion-button>
+                    <ion-button color="danger" (click)="confirmDelete('ingresos', id, monthYear)">Eliminar</ion-button>
+                  </ion-item>
+                </div>
+              
+                <div *ngFor="let id of getKeys(monthlyValues[monthYear].gastos)">
+                  <ion-item>
+                    <ion-label>{{ monthlyValues[monthYear].gastos[id].descripcion }} <br> - ${{ monthlyValues[monthYear].gastos[id].monto }}</ion-label>
+                    <ion-button (click)="openModal('gastos', null, monthlyValues[monthYear].gastos[id], id, monthYear)">Editar</ion-button>
+                    <ion-button color="danger" (click)="confirmDelete('gastos', id, monthYear)">Eliminar</ion-button>
+                  </ion-item>
+                </div>
+              
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+      <ng-template #noMonthlyValues>
+        <ion-item>
+          <ion-label>No hay elementos para mostrar</ion-label>
+        </ion-item>
+      </ng-template>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
